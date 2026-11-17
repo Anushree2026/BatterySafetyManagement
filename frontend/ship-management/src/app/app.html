@@ -1,0 +1,133 @@
+
+<div class="page">
+
+  <header class="header">
+    <div>
+      <h1>Battery Safety Management</h1>
+      <p>Ship Management Dashboard</p>
+    </div>
+    <span class="status">System Online</span>
+  </header>
+
+  <main class="container">
+
+    <section class="welcome">
+      <h2>Ship Management</h2>
+      <p>Register and manage ships in your battery safety system.</p>
+    </section>
+
+    <section class="form-section">
+      <h2>Register New Ship</h2>
+
+      <form (ngSubmit)="addShip()">
+
+        <div class="form-group">
+          <label>Ship Name</label>
+          <input
+            type="text"
+            name="shipName"
+            [(ngModel)]="shipName"
+            placeholder="Enter ship name">
+        </div>
+
+        <div class="form-group">
+          <label>Ship Type</label>
+          <select name="shipType" [(ngModel)]="shipType">
+            <option value="">Select ship type</option>
+            <option value="Cargo">Cargo</option>
+            <option value="Passenger">Passenger</option>
+            <option value="Tanker">Tanker</option>
+            <option value="Container">Container</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>IMO Number</label>
+          <input
+            type="text"
+            name="imoNumber"
+            [(ngModel)]="imoNumber"
+            placeholder="Enter IMO number">
+        </div>
+
+        <button type="submit">
+          {{ editingShipId ? 'Update Ship' : 'Register Ship' }}
+        </button>
+
+      
+
+      </form>
+    </section>
+
+    <section class="ships-section">
+      <h2>Registered Ships</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ship Name</th>
+            <th>Ship Type</th>
+            <th>IMO Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (ship of ships; track ship.shipId) {
+            <tr>
+  <td>{{ ship.shipId }}</td>
+
+  @if (editingShipId === ship.shipId) {
+    <td>
+      <input
+        type="text"
+        [(ngModel)]="editShipName"
+        [ngModelOptions]="{standalone: true}">
+    </td>
+
+    <td>
+      <select
+        [(ngModel)]="editShipType"
+        [ngModelOptions]="{standalone: true}">
+        <option value="Cargo">Cargo</option>
+        <option value="Passenger">Passenger</option>
+        <option value="Tanker">Tanker</option>
+        <option value="Container">Container</option>
+      </select>
+    </td>
+
+    <td>
+      <input
+        type="text"
+        [(ngModel)]="editImoNumber"
+        [ngModelOptions]="{standalone: true}">
+    </td>
+
+    <td>
+      <button type="button" (click)="updateShip()">Save</button>
+      <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+    </td>
+  } @else {
+    <td>{{ ship.shipName }}</td>
+    <td>{{ ship.shipType }}</td>
+    <td>{{ ship.imoNumber }}</td>
+
+    <td>
+      <button type="button" (click)="editShip(ship)">Edit</button>
+      <button
+        type="button"
+        class="delete-btn"
+        (click)="deleteShip(ship.shipId)">
+        Delete
+      </button>
+    </td>
+  }
+</tr>
+          }
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</div>

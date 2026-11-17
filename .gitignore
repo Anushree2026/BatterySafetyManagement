@@ -1,0 +1,23 @@
+# Node.js files
+node_modules/
+dist/
+
+# Java generated files
+target/
+
+# Private configuration
+.env
+.env.*
+application-local.properties
+
+
+# IDE files
+.idea/
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+application.properties
+*.zip
